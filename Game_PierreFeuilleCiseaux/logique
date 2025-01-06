@@ -1,0 +1,22 @@
+class Game
+	// Attribute
+		\_listPlayer
+		\_nbRound
+	// Function
+		-startGame
+		-startRound
+class Player
+	// Attribute
+		\_choice
+	// Function
+		-choose
+Enum Choix_PFC
+	Pierre
+	Feuille
+	Ciseau
+Enum Choix_PFCLS
+	Pierre
+	Feuille
+	Ciseau
+	Lézard
+	Spoke

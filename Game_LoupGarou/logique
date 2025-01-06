@@ -1,0 +1,50 @@
+class Game
+	// Attribute
+		\_listPlayer
+		\_dayCounter 		(int) 	-> Permet d'afficher 
+		\_listVictim					-> Permet d'avoir la liste de toutes les victimes et de les tuers en même temps à la fin d'une nuit
+	// Function
+		-startGame
+		-startNextNight
+		-startNextDay
+		-attributeRole
+		-getPlayerAlive
+		-getPlayerDead				-> Retourner le nom de la personne morte et a quel tour
+		-checkWinner
+		-getWinner
+class Player
+	// Attribute
+		\_id
+		\_pseudo
+class Villageois extends Player
+	// Attribute
+		\_mayor 			(bool)	-> A ajouter en second temps
+		\_lover 			(bool)	-> A ajouter en second temps
+		\_dead 				(bool)
+		\_vote				(int)  	-> Correspond au nombre de vote sur la personne
+		\_deathTurn
+	// Function
+		-voteToExpel
+		-die
+		-getRole 					-> "virtual void afficherRole() const"
+class LoupGarou extends Villageois
+	// Function
+		-voteToKill
+		-getRole 					-> "void afficherRole() const override"
+class Sorcière extends Villageois
+	// Function
+		-seeVictim
+		-useKillPotion
+		-useSavePotion
+		-getRole 					-> "void afficherRole() const override"
+class Voyante extends Villageois
+	// Function
+		-seePlayerRoles
+		-getRole 					-> "void afficherRole() const override"
+class Chasseur extends Villageois
+	// Function
+		-dieWithSomeone
+		-getRole 					-> "void afficherRole() const override"
+class Cupidon extends Villagois
+	// Function
+		-chooseLover

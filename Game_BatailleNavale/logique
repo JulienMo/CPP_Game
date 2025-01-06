@@ -1,0 +1,31 @@
+class Game
+	// Attribute
+		\_listPlayer
+	// Function
+		-startGame
+		-startPlacingBoat
+		-startWar
+		-changePlayerTurn
+class Player
+	// Atribute
+		\_id
+		\_pseudo
+	// Function
+		-placeBoat
+		-pickCase
+class Grille
+	// Atribute
+		\_xSize
+		\_ySize
+class Coordonée
+	// Attribute
+		\_x
+		\_y
+		\_isBoat
+		\_isAlreadyTargeted
+class Boat
+	// Attribute
+		\_size
+		\_startPosition (x+y)
+		\_endPosition (x+y)
+		\_isDestroy				(bool)	-> à implémenter plus tard, permet au joueur qui détient le bateau de pouvoir savoir le nombre de bateau restant
