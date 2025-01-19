@@ -2,10 +2,14 @@
 
 #include "Voyante.hpp"
 
-void Voyante::seePlayerRole() {
+Voyante::Voyante() noexcept {}
+
+Voyante::~Voyante() noexcept {}
+
+void Voyante::seePlayerRole() const noexcept {
 	std::cout << "seePlayerRole()" << std::endl;
 }
 
-std::string Voyante::getRole() {
+std::string Voyante::getRole() const noexcept {
 	return "Voyante";
 }

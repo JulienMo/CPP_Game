@@ -2,10 +2,14 @@
 
 #include "Chasseur.hpp"
 
+Chasseur::Chasseur() noexcept {}
+
+Chasseur::~Chasseur() {}
+
 void Chasseur::dieWithSomeone() {
 	std::cout << "dieWithSomeone()" << std::endl;
 }
 
-std::string getRole() {
+std::string Chasseur::getRole() const noexcept {
 	return "Chasseur";
 }

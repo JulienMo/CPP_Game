@@ -6,9 +6,15 @@
 #include "Villageois.hpp"
 
 class Cupidon : public Villageois {
+
+	using Villageois::Villageois;
+
 	public : 
+		Cupidon() noexcept;
+		~Cupidon();
+
 		void chooseLover();
-		std::string getRole();
+		std::string getRole() const noexcept override;
 };
 
 #endif

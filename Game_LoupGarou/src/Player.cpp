@@ -1,22 +1,19 @@
 #include "Player.hpp"
 
-Player::Player() {
-	this->_id = 1;
-	this->_pseudo = "Jhon Doe";
-}
+Player::Player() noexcept : _id(1), _pseudo("one") {}
 
-Player::~Player() {
-	delete this;
-}
+Player::Player(int id, std::string pseudo) noexcept : _id(id), _pseudo(pseudo) {}
 
-int Player::getId() {
+Player::~Player() {}
+
+int Player::getId() const noexcept {
 	return this->_id;
 }
 
-std::string Player::getPseudo() {
+std::string Player::getPseudo() const noexcept {
 	return this->_pseudo;
 }
 
-bool Player::operator==(Player& other) const {
+bool Player::operator==(Player& other) const noexcept {
 	return _id == other.getId() && _pseudo == other.getPseudo();
 }

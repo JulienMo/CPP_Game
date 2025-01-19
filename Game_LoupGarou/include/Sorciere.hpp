@@ -6,11 +6,17 @@
 #include "Villageois.hpp"
 
 class Sorciere : public Villageois {
+
+	using Villageois::Villageois;
+
 	public : 
-		void seeVictim();
+		Sorciere() noexcept;
+		~Sorciere();
+
+		void seeVictim() const noexcept;
 		void useKillPotion();
 		void useSavePotion();
-		std::string getRole();
+		std::string getRole() const noexcept override;
 };
 
 #endif

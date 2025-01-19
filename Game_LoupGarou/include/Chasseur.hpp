@@ -6,9 +6,15 @@
 #include "Villageois.hpp"
 
 class Chasseur : public Villageois {
+
+	using Villageois::Villageois;
+
 	public :
+		Chasseur() noexcept;
+		~Chasseur();
+
 		void dieWithSomeone();
-		std::string getRole() const;
+		std::string getRole() const noexcept override;
 };
 
 #endif

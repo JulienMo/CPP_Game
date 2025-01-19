@@ -26,25 +26,25 @@ class Villageois extends Player
 	// Function
 		-voteToExpel
 		-die
-		-getRole 					-> "virtual void afficherRole() const"
+		-getRole 					-> "virtual void afficherRole() const noexcept"
 class LoupGarou extends Villageois
 	// Function
 		-voteToKill
-		-getRole 					-> "void afficherRole() const override"
+		-getRole 					-> "void afficherRole() const noexcept override"
 class Sorcière extends Villageois
 	// Function
 		-seeVictim
 		-useKillPotion
 		-useSavePotion
-		-getRole 					-> "void afficherRole() const override"
+		-getRole 					-> "void afficherRole() const noexcept override"
 class Voyante extends Villageois
 	// Function
 		-seePlayerRoles
-		-getRole 					-> "void afficherRole() const override"
+		-getRole 					-> "void afficherRole() const noexcept override"
 class Chasseur extends Villageois
 	// Function
 		-dieWithSomeone
-		-getRole 					-> "void afficherRole() const override"
+		-getRole 					-> "void afficherRole() const noexcept override"
 class Cupidon extends Villagois
 	// Function
 		-chooseLover

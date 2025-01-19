@@ -2,10 +2,14 @@
 
 #include "LoupGarou.hpp"
 
+LoupGarou::LoupGarou() noexcept {}
+
+LoupGarou::~LoupGarou() {}
+
 void LoupGarou::voteToKill() {
 	std::cout << "voteToKill()" << std::endl;
 }
 
-std::string LoupGarou::getRole() {
+std::string LoupGarou::getRole() const noexcept {
 	return "Loup-Garou";
 }

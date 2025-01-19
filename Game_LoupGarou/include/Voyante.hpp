@@ -6,9 +6,15 @@
 #include "Villageois.hpp"
 
 class Voyante : public Villageois {
+
+	using Villageois::Villageois;
+
 	public :
-		void seePlayerRole();
-		std::string getRole();
+		Voyante() noexcept;
+		~Voyante();
+
+		void seePlayerRole() const noexcept;
+		std::string getRole() const noexcept override;
 };
 
 #endif

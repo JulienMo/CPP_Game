@@ -19,5 +19,5 @@ add_library(src SHARED
 	./src/Voyante.cpp
 )
 
-add_executable(${PROJECT_NAME} ./app/main.cpp)
-target_link_libraries(${PROJECT_NAME} PRIVATE src)
+add_executable(game ./app/main.cpp)
+target_link_libraries(game PRIVATE src)

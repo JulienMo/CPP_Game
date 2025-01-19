@@ -5,13 +5,14 @@
 
 class Player {
 	public :
-		Player();
-		~Player();
+		Player() noexcept;
+		Player(int id, std::string pseudo) noexcept;
+		virtual ~Player();
 
-		int getId();
-		std::string getPseudo();
+		int getId() const noexcept;
+		std::string getPseudo() const noexcept;
 
-		bool operator==(Player& other) const;
+		bool operator==(Player& other) const noexcept;
 	private :
 		int _id;
 		std::string _pseudo;

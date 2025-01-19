@@ -6,10 +6,22 @@
 #include "Player.hpp"
 
 class Villageois : public Player {
+
+	using Player::Player;
+	
 	public :
+		Villageois() noexcept;
+		~Villageois();
+
 		void voteToExpel();
 		void die();
-		virtual std::string getRole();
+		virtual std::string getRole() const noexcept;
+	private :
+		bool _isDead;
+		bool _isMayor;
+		Player vote;
+		Player _idLover;
+		int deathTurn;
 };
 
 #endif 
