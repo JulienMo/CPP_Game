@@ -8,23 +8,13 @@
 
 std::list<Villageois*> default_list_Villageois{new Villageois, new Chasseur(2, "test"), new Villageois(3, "three"), new Voyante(4, "four"), new Villageois(5, "five"), new Villageois(6, "six")};
 
-Game::Game() noexcept : _listPlayer(default_list_Villageois) {
-	for (Villageois* v : default_list_Villageois) {
+Game::Game() noexcept : _listPlayer(default_list_Villageois), _dayCounter(0), _isNight(false) {
+	for (Villageois* v : this->getListPlayer()) {
 		std::cout << "Id : " << v->getId() << ", Pseudo : " << v->getPseudo() << ", Role : " << v->getRole() << std::endl;
 	}
 
-	std::cout << "\n\n\n" << std::endl;
-
-	Chasseur* chasseur{getChasseur()};
-	chasseur->dieWithSomeone();
-
-	Voyante* voyante{getVoyante()};
-	voyante->seePlayerRole();
-
-	std::list<Villageois*> listeVillageois{getVillageois()};
-	for (Villageois* v : listeVillageois) {
-		std::cout << v->getRole() << std::endl;
-	}
+	this->attributeRole();
+	this->startGame();
 }
 
 Chasseur* Game::getChasseur() {
@@ -133,9 +123,12 @@ void Game::goToNextDay() {
 
 void Game::startGame() {
 	std::cout << "startGame()" << std::endl;
+	startNextNight();
 }
 
 void Game::startNextNight() {
+
+	// TODO 
 	std::cout << "startNextNight()" << std::endl;
 }
 
@@ -150,4 +143,8 @@ void Game::attributeRole() {
 bool Game::checkWinnner() const noexcept {
 	std::cout << "checkWinner()" << std::endl;
 	return true;
+}
+
+void Game::setIsNight(bool b) noexcept {
+	this->_isNight = b;
 }

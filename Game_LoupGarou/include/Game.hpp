@@ -26,6 +26,8 @@ class Game {
 		int getDayCounter() const noexcept;
 		bool getIsNight() const noexcept;
 
+		void setIsNight(bool b) noexcept;
+
 		void addPlayer(Villageois* p);
 		void removePlayer(Villageois* p);
 		void addVictim(Villageois* p);
