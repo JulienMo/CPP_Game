@@ -11,6 +11,7 @@ class Chasseur : public Villageois {
 
 	public :
 		Chasseur() noexcept;
+		Chasseur(Villageois* v) noexcept;
 		~Chasseur();
 
 		void dieWithSomeone();

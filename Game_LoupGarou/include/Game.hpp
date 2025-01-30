@@ -30,8 +30,12 @@ class Game {
 
 		void addPlayer(Villageois* p);
 		void removePlayer(Villageois* p);
-		void addVictim(Villageois* p);
-		void removeVictim(Villageois* p);
+		Villageois* getPlayer(int place) const noexcept;
+		void updatePlayer(Villageois* v, int place) const noexcept;
+		void updatePlayer();
+		void printListPlayer() const noexcept;
+		void addVictim(Villageois* v);
+		void removeVictim(Villageois* v);
 		void goToNextDay();
 
 		void startGame();
@@ -40,12 +44,12 @@ class Game {
 		void attributeRole();
 		bool checkWinnner() const noexcept;
 
-		std::list<Villageois*> getVillageois();
-		std::list<LoupGarou*> getLoupGarou();
-		Chasseur* getChasseur();
-		Voyante* getVoyante();
-		Sorciere* getSorciere();
-		Cupidon* getCupidon();
+		std::list<Villageois*> getVillageois() const noexcept;
+		std::list<LoupGarou*> getLoupGarou() const noexcept;
+		Chasseur* getChasseur() const noexcept;
+		Voyante* getVoyante() const noexcept;
+		Sorciere* getSorciere() const noexcept;
+		Cupidon* getCupidon() const noexcept;
 };
 
 #endif 

@@ -1,82 +1,37 @@
 #include <iostream>
 #include <list>
+#include <cstdlib>
+#include <ctime>
 
 #include "Game.hpp" 
 #include "Villageois.hpp"
 #include "Chasseur.hpp"
 #include "Voyante.hpp"
 
-std::list<Villageois*> default_list_Villageois{new Villageois, new Chasseur(2, "test"), new Villageois(3, "three"), new Voyante(4, "four"), new Villageois(5, "five"), new Villageois(6, "six")};
+std::list<Villageois*> default_list_Villageois{new Villageois, new Villageois(2, "test"), new Villageois(3, "three"), new Villageois(4, "four"), new Villageois(5, "five"), new Villageois(6, "six")};
+std::list<Villageois*> default_list_Villageois2{new Villageois, new Chasseur(2, "test"), new Villageois(3, "three"), new Voyante(4, "four"), new Villageois(5, "five"), new Villageois(6, "six")};
 
 Game::Game() noexcept : _listPlayer(default_list_Villageois), _dayCounter(0), _isNight(false) {
-	for (Villageois* v : this->getListPlayer()) {
-		std::cout << "Id : " << v->getId() << ", Pseudo : " << v->getPseudo() << ", Role : " << v->getRole() << std::endl;
-	}
-
+	this->printListPlayer();
+	
 	this->attributeRole();
 	this->startGame();
-}
-
-Chasseur* Game::getChasseur() {
-	for (Villageois* v : this->getListPlayer()) {
-		if (dynamic_cast<Chasseur*>(v)) {
-			return dynamic_cast<Chasseur*>(v);
-		}
-	}
-	return nullptr;
-}
-
-Voyante* Game::getVoyante() {
-	for (Villageois* v : this->getListPlayer()) {
-		if (dynamic_cast<Voyante*>(v)) {
-			return dynamic_cast<Voyante*>(v);
-		}
-	}
-	return nullptr;
-}
-
-Cupidon* Game::getCupidon() {
-	for (Villageois* v : this->getListPlayer()) {
-		if (dynamic_cast<Cupidon*>(v)) {
-			return dynamic_cast<Cupidon*>(v);
-		}
-	}
-	return nullptr;
-}
-
-Sorciere* Game::getSorciere() {
-	for (Villageois* v : this->getListPlayer()) {
-		if (dynamic_cast<Sorciere*>(v)) {
-			return dynamic_cast<Sorciere*>(v);
-		}
-	}
-	return nullptr;
-}
-
-std::list<Villageois*> Game::getVillageois() {
-	std::list<Villageois*> listVillageois;
-	for (Villageois* v : this->getListPlayer()) {
-		if (dynamic_cast<Villageois*>(v)) {
-			listVillageois.push_back(dynamic_cast<Villageois*>(v));
-		}
-	}
-	return listVillageois;
-}
-
-std::list<LoupGarou*> Game::getLoupGarou() {
-	std::list<LoupGarou*> listLoupGarou;
-	for (Villageois* v : this->getListPlayer()) {
-		if (dynamic_cast<LoupGarou*>(v)) {
-			listLoupGarou.push_back(dynamic_cast<LoupGarou*>(v));
-		}
-	}
-	return listLoupGarou;
 }
 
 Game::~Game() {}
 
 std::list<Villageois*> Game::getListPlayer() const noexcept {
 	return this->_listPlayer;
+}
+
+Villageois* Game::getPlayer(int place) const noexcept {
+	std::list<Villageois*>::iterator it = this->getListPlayer().begin();
+	std::advance(it, place);
+	return *it;
+}
+
+void Game::updatePlayer(Villageois* v, int place) {
+
 }
 
 std::list<Villageois*> Game::getListVictim() const noexcept {
@@ -99,14 +54,19 @@ bool Game::getIsNight() const noexcept {
 	return this->_isNight;
 }
 
-void Game::addPlayer(Villageois* v) {
+void Game::addPlayer(Villageois* p) {
 	std::cout << "addVillageois()" << std::endl;
-	this->_listPlayer.push_back(v);
-	std::cout << "addVillageois()" << std::endl;
+	this->_listPlayer.push_back(p);
 }
 
-void Game::removePlayer(Villageois* v) {
-	this->_listPlayer.remove(v);
+void Game::removePlayer(Villageois* p) {
+	this->_listPlayer.remove(p);
+}
+
+void Game::printListPlayer() const noexcept {
+	for (Villageois* v : this->getListPlayer()) {
+		std::cout << "Id : " << v->getId() << ", Pseudo : " << v->getPseudo() << ", Role : " << v->getRole() << std::endl;
+	}
 }
 
 void Game::addVictim(Villageois* v) {
@@ -137,7 +97,27 @@ void Game::startNextDay() {
 }
 
 void Game::attributeRole() {
+	std::cout << "------------------------------------------------------------------------------------" << std::endl;
 	std::cout << "attributeRole()" << std::endl;
+
+	std::srand(std::time(nullptr)); // use current time as seed for random generator
+    int random_value = std::rand() % this->getListPlayer().size();
+
+	std::cout << "random_value : " << random_value << std::endl;
+
+	auto temp = this->getVillageois();
+	std::list<Villageois*>::iterator it = temp.begin();
+	Chasseur* test = new Chasseur(this->getPlayer(random_value));
+
+	this->addPlayer(test);
+
+	std::cout << "------------------------------------------------------------------------------------" << std::endl;
+	for (Villageois* v : temp) {
+		std::cout << "Id : " << v->getId() << ", Pseudo : " << v->getPseudo() << ", Role : " << v->getRole() << std::endl;
+	}
+	std::cout << "------------------------------------------------------------------------------------" << std::endl;
+
+	this->printListPlayer();
 }
 
 bool Game::checkWinnner() const noexcept {
@@ -147,4 +127,60 @@ bool Game::checkWinnner() const noexcept {
 
 void Game::setIsNight(bool b) noexcept {
 	this->_isNight = b;
+}
+
+Chasseur* Game::getChasseur() const noexcept {
+	for (Villageois* v : this->getListPlayer()) {
+		if (dynamic_cast<Chasseur*>(v)) {
+			return dynamic_cast<Chasseur*>(v);
+		}
+	}
+	return nullptr;
+}
+
+Voyante* Game::getVoyante() const noexcept {
+	for (Villageois* v : this->getListPlayer()) {
+		if (dynamic_cast<Voyante*>(v)) {
+			return dynamic_cast<Voyante*>(v);
+		}
+	}
+	return nullptr;
+}
+
+Cupidon* Game::getCupidon() const noexcept {
+	for (Villageois* v : this->getListPlayer()) {
+		if (dynamic_cast<Cupidon*>(v)) {
+			return dynamic_cast<Cupidon*>(v);
+		}
+	}
+	return nullptr;
+}
+
+Sorciere* Game::getSorciere() const noexcept {
+	for (Villageois* v : this->getListPlayer()) {
+		if (dynamic_cast<Sorciere*>(v)) {
+			return dynamic_cast<Sorciere*>(v);
+		}
+	}
+	return nullptr;
+}
+
+std::list<Villageois*> Game::getVillageois() const noexcept {
+	std::list<Villageois*> listVillageois;
+	for (Villageois* v : this->getListPlayer()) {
+		if (dynamic_cast<Villageois*>(v)) {
+			listVillageois.push_back(dynamic_cast<Villageois*>(v));
+		}
+	}
+	return listVillageois;
+}
+
+std::list<LoupGarou*> Game::getLoupGarou() const noexcept {
+	std::list<LoupGarou*> listLoupGarou;
+	for (Villageois* v : this->getListPlayer()) {
+		if (dynamic_cast<LoupGarou*>(v)) {
+			listLoupGarou.push_back(dynamic_cast<LoupGarou*>(v));
+		}
+	}
+	return listLoupGarou;
 }
