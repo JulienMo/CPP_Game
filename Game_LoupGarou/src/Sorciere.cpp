@@ -4,6 +4,8 @@
 
 Sorciere::Sorciere() noexcept {}
 
+Sorciere::Sorciere(Villageois* v) noexcept : Villageois(v->getId(), v->getPseudo()) {}
+
 Sorciere::~Sorciere() {}
 
 void Sorciere::seeVictim() const noexcept {

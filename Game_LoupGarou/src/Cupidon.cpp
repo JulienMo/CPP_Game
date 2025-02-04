@@ -4,6 +4,8 @@
 
 Cupidon::Cupidon() noexcept {}
 
+Cupidon::Cupidon(Villageois* v) noexcept : Villageois(v->getId(), v->getPseudo()) {}
+
 Cupidon::~Cupidon() {}
 
 void Cupidon::chooseLover() {

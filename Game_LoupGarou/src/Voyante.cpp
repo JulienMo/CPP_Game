@@ -4,6 +4,8 @@
 
 Voyante::Voyante() noexcept {}
 
+Voyante::Voyante(Villageois* v) noexcept : Villageois(v->getId(), v->getPseudo()) {}
+
 Voyante::~Voyante() noexcept {}
 
 void Voyante::seePlayerRole() const noexcept {

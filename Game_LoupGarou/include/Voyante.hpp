@@ -11,6 +11,7 @@ class Voyante : public Villageois {
 
 	public :
 		Voyante() noexcept;
+		Voyante(Villageois* v) noexcept;
 		~Voyante();
 
 		void seePlayerRole() const noexcept;

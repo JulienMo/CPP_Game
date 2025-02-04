@@ -11,6 +11,7 @@ class Cupidon : public Villageois {
 
 	public : 
 		Cupidon() noexcept;
+		Cupidon(Villageois* v) noexcept;
 		~Cupidon();
 
 		void chooseLover();

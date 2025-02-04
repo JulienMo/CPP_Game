@@ -11,6 +11,7 @@ class Sorciere : public Villageois {
 
 	public : 
 		Sorciere() noexcept;
+		Sorciere(Villageois* v) noexcept;
 		~Sorciere();
 
 		void seeVictim() const noexcept;

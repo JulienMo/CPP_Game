@@ -11,6 +11,7 @@ class Player {
 
 		int getId() const noexcept;
 		std::string getPseudo() const noexcept;
+		void setPseudo(std::string pseudo);
 
 		bool operator==(Player& other) const noexcept;
 	private :

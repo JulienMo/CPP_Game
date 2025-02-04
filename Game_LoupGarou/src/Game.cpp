@@ -2,36 +2,42 @@
 #include <list>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 #include "Game.hpp" 
 #include "Villageois.hpp"
 #include "Chasseur.hpp"
 #include "Voyante.hpp"
 
-std::list<Villageois*> default_list_Villageois{new Villageois, new Villageois(2, "test"), new Villageois(3, "three"), new Villageois(4, "four"), new Villageois(5, "five"), new Villageois(6, "six")};
+std::list<Villageois*> default_list_Villageois{new Villageois, new Villageois(2, "two"), new Villageois(3, "three"), new Villageois(4, "four"), new Villageois(5, "five"), new Villageois(6, "six")};
 std::list<Villageois*> default_list_Villageois2{new Villageois, new Chasseur(2, "test"), new Villageois(3, "three"), new Voyante(4, "four"), new Villageois(5, "five"), new Villageois(6, "six")};
 
-Game::Game() noexcept : _listPlayer(default_list_Villageois), _dayCounter(0), _isNight(false) {
-	this->printListPlayer();
+Game::Game() noexcept : _listPlayer(default_list_Villageois2), _dayCounter(0), _isNight(false) {
+	// this->printListPlayer();
+
+	this->printListVillageois();
 	
-	this->attributeRole();
-	this->startGame();
+	// this->attributeRole();
+	// this->startGame();
 }
 
 Game::~Game() {}
 
-std::list<Villageois*> Game::getListPlayer() const noexcept {
-	return this->_listPlayer;
+std::list<Villageois*>& Game::getListPlayer() const noexcept {
+	return _listPlayer;
 }
 
 Villageois* Game::getPlayer(int place) const noexcept {
-	std::list<Villageois*>::iterator it = this->getListPlayer().begin();
+	std::list<Villageois*> list = this->getListPlayer();
+	auto it = list.begin();
 	std::advance(it, place);
 	return *it;
 }
 
-void Game::updatePlayer(Villageois* v, int place) {
+void Game::changeRolePlayer(Villageois* v, Villageois* newRole) const noexcept {
+	std::list<Villageois*>& list = this->getListPlayer();
 
+	std::replace(list.begin(), list.end(), v, newRole);
 }
 
 std::list<Villageois*> Game::getListVictim() const noexcept {
@@ -64,7 +70,15 @@ void Game::removePlayer(Villageois* p) {
 }
 
 void Game::printListPlayer() const noexcept {
+	std::cout << "----------------------- printListPlayer ---------------------------------" << std::endl;
 	for (Villageois* v : this->getListPlayer()) {
+		std::cout << "Id : " << v->getId() << ", Pseudo : " << v->getPseudo() << ", Role : " << v->getRole() << std::endl;
+	}
+}
+
+void Game::printListVillageois() const noexcept {
+	std::cout << "----------------------- printListVillageois ---------------------------------" << std::endl;
+	for (Villageois* v : this->getVillageois()) {
 		std::cout << "Id : " << v->getId() << ", Pseudo : " << v->getPseudo() << ", Role : " << v->getRole() << std::endl;
 	}
 }
@@ -101,21 +115,18 @@ void Game::attributeRole() {
 	std::cout << "attributeRole()" << std::endl;
 
 	std::srand(std::time(nullptr)); // use current time as seed for random generator
-    int random_value = std::rand() % this->getListPlayer().size();
 
+    int random_value = std::rand() % this->getVillageois().size();
 	std::cout << "random_value : " << random_value << std::endl;
+	Villageois* selectPlayer = this->getPlayer(random_value);
+	std::cout << "Chasseur :\t- ID : " << selectPlayer->getId() << std::endl;
+	this->changeRolePlayer(selectPlayer, new Chasseur(selectPlayer));
 
-	auto temp = this->getVillageois();
-	std::list<Villageois*>::iterator it = temp.begin();
-	Chasseur* test = new Chasseur(this->getPlayer(random_value));
-
-	this->addPlayer(test);
-
-	std::cout << "------------------------------------------------------------------------------------" << std::endl;
-	for (Villageois* v : temp) {
-		std::cout << "Id : " << v->getId() << ", Pseudo : " << v->getPseudo() << ", Role : " << v->getRole() << std::endl;
-	}
-	std::cout << "------------------------------------------------------------------------------------" << std::endl;
+	random_value = std::rand() % this->getVillageois().size();
+	std::cout << "random_value : " << random_value << std::endl;
+	selectPlayer = this->getPlayer(random_value);
+	std::cout << "Voyante :\t- ID : " << selectPlayer->getId() << std::endl;
+	this->changeRolePlayer(selectPlayer, new Voyante(selectPlayer));
 
 	this->printListPlayer();
 }
@@ -168,7 +179,8 @@ Sorciere* Game::getSorciere() const noexcept {
 std::list<Villageois*> Game::getVillageois() const noexcept {
 	std::list<Villageois*> listVillageois;
 	for (Villageois* v : this->getListPlayer()) {
-		if (dynamic_cast<Villageois*>(v)) {
+
+		if (typeid(*v) == typeid(Villageois)) {		// Couldn't ue dynamic cast, because all the object are cast at least as a Villageois 
 			listVillageois.push_back(dynamic_cast<Villageois*>(v));
 		}
 	}

@@ -4,6 +4,8 @@
 
 LoupGarou::LoupGarou() noexcept {}
 
+LoupGarou::LoupGarou(Villageois* v) noexcept : Villageois(v->getId(), v->getPseudo()) {}
+
 LoupGarou::~LoupGarou() {}
 
 void LoupGarou::voteToKill() {

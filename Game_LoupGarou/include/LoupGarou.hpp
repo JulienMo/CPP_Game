@@ -11,6 +11,7 @@ class LoupGarou : public Villageois {
 
 	public :
 		LoupGarou() noexcept;
+		LoupGarou(Villageois* v) noexcept;
 		~LoupGarou();
 
 		void voteToKill();
