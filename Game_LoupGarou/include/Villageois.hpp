@@ -14,8 +14,10 @@ class Villageois : public Player {
 		~Villageois();
 
 		void voteToExpel();
-		void die();
+		virtual void die() noexcept;
 		virtual std::string getRole() const noexcept;
+		bool getIsDead() const noexcept;
+		void setIsDead(bool b) noexcept;
 	private :
 		bool _isDead;
 		bool _isMayor;

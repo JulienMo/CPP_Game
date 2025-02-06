@@ -16,6 +16,7 @@ class Chasseur : public Villageois {
 
 		void dieWithSomeone();
 		std::string getRole() const noexcept override;
+		void die() noexcept override;
 };
 
 #endif
