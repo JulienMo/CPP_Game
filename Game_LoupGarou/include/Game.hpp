@@ -12,15 +12,16 @@
 
 class Game {
 	private :
-		std::list<Villageois*>& _listPlayer;
+		std::list<Villageois*> _listPlayer;
 		std::list<Villageois*> _listVictim;
 		int _dayCounter;
 		bool _isNight;
 	public :
 		Game() noexcept;
+		Game(int nbPlayer);
 		~Game();
 
-		std::list<Villageois*>& getListPlayer() const noexcept;
+		std::list<Villageois*> getListPlayer() const noexcept;
 		std::list<Villageois*> getListVictim() const noexcept;
 		std::list<Villageois*> getPlayerAlive() const noexcept;
 		int getDayCounter() const noexcept;
@@ -31,12 +32,13 @@ class Game {
 		void addPlayer(Villageois* p);
 		void removePlayer(Villageois* p);
 		Villageois* getPlayer(int place) const noexcept;
-		void changeRolePlayer(Villageois* v, Villageois* newRole) const noexcept;
+		bool changeRolePlayer(Villageois* v, Villageois* newRole) noexcept;
 		void printListPlayer() const noexcept;
 		void printListVillageois() const noexcept;
 		void addVictim(Villageois* v);
 		void removeVictim(Villageois* v);
 		void goToNextDay();
+		void createListePlayer(int nbPlayer);
 
 		void startGame();
 		void startNextNight();
